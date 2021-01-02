@@ -5,6 +5,16 @@ import numpy as np
 
 import utils
 import filters
+import edge_detection
+
+
+
+# START -> Area for precomputed values that have costly recomputation if done per frame
+
+log = filters.lap_of_gauss(2)
+
+# END
+
 
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
@@ -18,11 +28,15 @@ while True:
     if not ret:
         print("Can't receive frame (stream end?). Exiting ...")
         break
-    # Our operations on the frame come here
+
+    # START -> Area for running algorithms on top of the video collected from the Video input device
+
+    # Convert to grayscale
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-    fil = filters.central_x()
-    gray = utils.apply_filter_intensity(gray,fil)
+    gray = edge_detection.marr_hildreth_detector(gray,log,gaussian=1)
+
+    # END
 
     # Display the resulting frame
     cv.imshow('frame',gray)
