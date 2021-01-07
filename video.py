@@ -34,7 +34,7 @@ while True:
     # Convert to grayscale
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-    gray = edge_detection.marr_hildreth_detector(gray,log,gaussian=1)
+    gray = edge_detection.canny_detector(gray, 4, 8)
 
     # END
 
