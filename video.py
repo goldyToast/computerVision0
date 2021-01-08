@@ -5,7 +5,7 @@ import numpy as np
 
 import utils
 import filters
-import edge_detection
+from edge_detectors import *
 
 
 
@@ -34,7 +34,8 @@ while True:
     # Convert to grayscale
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
-    gray = edge_detection.canny_detector(gray, 4, 8)
+    # gray = cv.resize(gray, (320,240))
+    gray = canny.canny_detector(gray, 4, 8)
 
     # END
 
